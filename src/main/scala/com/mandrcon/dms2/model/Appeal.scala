@@ -7,5 +7,5 @@ case class Appeal(
   denial: Denial,
   dateSubmitted: Date,
   dateReviewed: Option[Date],
-  body: String,
+  body: Option[String],
 )

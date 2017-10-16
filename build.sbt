@@ -13,6 +13,10 @@ libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-json4s-jackson" % "1.0.0",
   "com.twitter" %% "finatra-http" % "2.13.0",
 
+  "io.monix" %% "monix" % "3.0.0-M1",
+  "co.fs2" %% "fs2-core" % "0.10.0-M6",
+  "co.fs2" %% "fs2-io" % "0.10.0-M6",
+
   "org.tpolecat" %% "doobie-core"      % "0.5.0-M8",
   "org.tpolecat" %% "doobie-postgres"  % "0.5.0-M8",
 )

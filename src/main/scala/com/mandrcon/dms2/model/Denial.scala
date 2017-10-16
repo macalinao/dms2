@@ -4,7 +4,7 @@ import java.sql.Date
 
 object Denial {
   object Source extends Enumeration {
-    val DMS, Summit, Apollo, other = Value
+    val DMS, Summit, Apollo, Other = Value
   }
 
   object Category extends Enumeration {
@@ -22,9 +22,9 @@ case class Denial(
   appeal: Option[Appeal],
 
   // additional info about the denial
-  datesDenied: String,
-  denialReason: String,
-  pages: Int,
-  patientId: String,
-  patientName: String,
+  datesDenied: Option[String],
+  denialReason: Option[String],
+  pages: Option[Int],
+  patientId: Option[String],
+  patientName: Option[String],
 )
