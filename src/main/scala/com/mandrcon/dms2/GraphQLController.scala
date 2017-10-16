@@ -1,6 +1,7 @@
 package com.mandrcon.dms2
 
 import com.twitter.finatra.http.Controller
+import com.twitter.finatra.request.Header
 import sangria.execution.{ ErrorWithResolver, QueryAnalysisError }
 import sangria.marshalling.json4s.jackson._
 import sangria.execution.deferred.DeferredResolver
@@ -11,18 +12,8 @@ import sangria.renderer.SchemaRenderer
 import sangria.schema.Schema
 import scala.concurrent.{ ExecutionContext, Future }
 
-object GraphQLController {
-  case class GraphQLRequest(
-    query: String,
-    operationName: Option[String],
-    ) {
-  }
-}
-
 
 class GraphQLController(server: Server)(implicit ec: ExecutionContext) extends Controller {
-  import GraphQLController._
-
   val intern = true
 
   val schema = Schema(
@@ -48,7 +39,7 @@ class GraphQLController(server: Server)(implicit ec: ExecutionContext) extends C
       result <- Executor.execute(
         schema,
         queryAst,
-        new Context(),
+        new Context(req.jwt),
         // variables = req.vars,
         operationName = req.operationName,
         // deferredResolver = DeferredResolver.fetchers(schema.staticTransformer.staticFetcher),
