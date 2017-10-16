@@ -10,8 +10,8 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.0.0-MF",
   "com.chuusai" %% "shapeless" % "2.3.2",
 
-  "org.sangria-graphql" %% "sangria" % "1.2.2",
-  "org.sangria-graphql" %% "sangria-relay" % "1.2.2",
+  "org.sangria-graphql" %% "sangria" % "1.3.0",
+  "org.sangria-graphql" %% "sangria-relay" % "1.3.0",
   "org.sangria-graphql" %% "sangria-json4s-jackson" % "1.0.0",
   "com.twitter" %% "finatra-http" % "2.13.0",
 
