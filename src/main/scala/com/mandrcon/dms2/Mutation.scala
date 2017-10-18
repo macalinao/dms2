@@ -1,6 +1,8 @@
 package com.mandrcon.dms2
 
+import pdi.jwt.Jwt
 import sangria.schema._
+import cats.implicits._
 
 object Mutation {
 
@@ -26,7 +28,8 @@ object Mutation {
 }
 
 class Mutation(ctx: Context) {
+
   def login(username: String, password: String): Option[String] = {
-    None
+    Jwt.encode(s"""{"username": "${username}"}""", "secretKey").some
   }
 }

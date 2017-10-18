@@ -21,4 +21,6 @@ libraryDependencies ++= Seq(
 
   "org.tpolecat" %% "doobie-core"      % "0.5.0-M8",
   "org.tpolecat" %% "doobie-postgres"  % "0.5.0-M8",
+
+  "com.pauldijou" %% "jwt-core" % "0.14.0",
 )
