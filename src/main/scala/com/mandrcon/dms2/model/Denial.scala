@@ -2,29 +2,26 @@ package com.mandrcon.dms2.model
 
 import java.sql.Date
 
-object Denial {
-  object Source extends Enumeration {
-    val DMS, Summit, Apollo, Other = Value
-  }
-
-  object Category extends Enumeration {
-    val NICU, MedSurg, PSYCH, Readmit = Value
-  }
+object DenialSource extends Enumeration {
+  val DMS, Summit, Apollo, Other = Value
 }
-import Denial._
+
+object DenialCategory extends Enumeration {
+  val NICU, MedSurg, PSYCH, Readmit = Value
+}
 
 case class Denial(
-  id: Int,
-  source: Source.Value,
-  category: Category.Value,
-  dateAssigned: Option[Date],
-  assignedTo: Option[User],
-  appeal: Option[Appeal],
+  id: String = "",
+  source: DenialSource.Value = DenialSource.Other,
+  category: DenialCategory.Value = DenialCategory.NICU,
+  dateAssigned: Option[Date] = None,
+  assignedTo: Option[User] = None,
+  appeal: Option[Appeal] = None,
 
   // additional info about the denial
-  datesDenied: Option[String],
-  denialReason: Option[String],
-  pages: Option[Int],
-  patientId: Option[String],
-  patientName: Option[String],
+  datesDenied: Option[String] = None,
+  denialReason: Option[String] = None,
+  pages: Option[Int] = None,
+  patientId: Option[String] = None,
+  patientName: Option[String] = None,
 )
