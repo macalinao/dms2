@@ -1,4 +1,4 @@
-package com.mandrcon.dms2
+package com.mandrcon.dms2.graphql
 
 import sangria.schema._
 
@@ -6,7 +6,7 @@ object Query {
   val Type = ObjectType(
     "Query",
     "The root query.",
-    fields[Context, Unit](
+    fields[DMSContext, Unit](
       Field(
         "asdf",
         IntType,
@@ -17,7 +17,7 @@ object Query {
   )
 }
 
-class Query(ctx: Context) {
+class Query(ctx: DMSContext) {
 
   val asdf = 1
 }

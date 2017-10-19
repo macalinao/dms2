@@ -3,6 +3,7 @@ package com.mandrcon.dms2
 import com.twitter.finatra.http.HttpServer
 import com.twitter.finatra.http.routing.HttpRouter
 import monix.execution.Scheduler.Implicits.global
+import com.mandrcon.dms2.graphql.GraphQLController
 
 
 class Server extends HttpServer {

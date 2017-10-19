@@ -1,19 +1,20 @@
-package com.mandrcon.dms2
+package com.mandrcon.dms2.graphql
 
+import io.circe.syntax._
 import com.twitter.finatra.http.Controller
+import com.mandrcon.dms2.Server
 import com.twitter.finatra.request.Header
+import monix.execution.Scheduler
 import sangria.execution.{ ErrorWithResolver, QueryAnalysisError }
-import sangria.marshalling.json4s.jackson._
 import sangria.execution.deferred.DeferredResolver
 import sangria.execution.{ Executor, QueryReducer }
 import sangria.parser.QueryParser
-import org.json4s.jackson.JsonMethods._
 import sangria.renderer.SchemaRenderer
 import sangria.schema.Schema
 import scala.concurrent.{ ExecutionContext, Future }
 
 
-class GraphQLController(server: Server)(implicit ec: ExecutionContext) extends Controller {
+class GraphQLController(server: Server)(implicit sched: Scheduler) extends Controller {
   val intern = true
 
   val schema = Schema(
@@ -31,25 +32,24 @@ class GraphQLController(server: Server)(implicit ec: ExecutionContext) extends C
     val reducers = if (intern) {
       Nil
     } else {
-      QueryReducer.rejectIntrospection[Context]() :: Nil
+      QueryReducer.rejectIntrospection[DMSContext]() :: Nil
     }
 
     val fut = for {
       queryAst <- Future.fromTry(QueryParser.parse(req.query))
       result <- Executor.execute(
-        schema,
-        queryAst,
-        new Context(req.jwt),
+        schema = schema,
+        queryAst = queryAst,
+        userContext = new DMSContext(req.jwt),
         // variables = req.vars,
         operationName = req.operationName,
         // deferredResolver = DeferredResolver.fetchers(schema.staticTransformer.staticFetcher),
         queryReducers = reducers,
       )
-      rendered = compact(render(result))
     } yield {
       response.ok
         .header("Access-Control-Allow-Origin", "*")
-        .json(rendered)
+        .json(result)
     }
 
     fut.recover {

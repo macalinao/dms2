@@ -1,6 +1,6 @@
 CREATE DATABASE dms2;
-CREATE SCHEMA dms2;
 CREATE EXTENSION pgcrypto;
+CREATE SCHEMA dms2;
 
 CREATE TABLE IF NOT EXISTS dms2.users(
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -19,6 +19,8 @@ CREATE TYPE dms2.denial_category AS ENUM(
 
 CREATE TABLE IF NOT EXISTS dms2.denials(
   denial_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  source dms2.denial_source,
+  category dms2.denial_category,
   date_assigned TIMESTAMP,
   assigned_to UUID REFERENCES dms2.users(user_id),
 

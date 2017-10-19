@@ -1,4 +1,4 @@
-package com.mandrcon.dms2
+package com.mandrcon.dms2.graphql
 
 import com.twitter.finatra.request.Header
 
